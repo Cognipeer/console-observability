@@ -1,0 +1,51 @@
+# n8n with the Cognipeer bridge as a sidecar.
+#
+#   export COGNIPEER_API_KEY=cpeer_…
+#   docker compose up
+#
+# Then open http://localhost:5678, build any AI Agent workflow, run it, and
+# look in Console → Tracing → Sessions. The bridge mirrors every finished
+# execution; it de-duplicates by execution id, so restarting it re-sends
+# nothing.
+#
+# The bridge needs an n8n API key: in n8n, Settings → n8n API → Create an API
+# key, then put it in N8N_API_KEY below (or in a .env file next to this one).
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    ports:
+      - '5678:5678'
+    environment:
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      # Needed for the bridge to read executions back out.
+      - N8N_PUBLIC_API_DISABLED=false
+      # Keep full run data — this is what the bridge maps into traces. Without
+      # it n8n prunes execution payloads and the traces arrive empty.
+      - EXECUTIONS_DATA_SAVE_ON_SUCCESS=all
+      - EXECUTIONS_DATA_SAVE_ON_ERROR=all
+      - EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS=true
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+  cognipeer-bridge:
+    image: node:22-alpine
+    depends_on:
+      - n8n
+    environment:
+      - COGNIPEER_API_KEY=${COGNIPEER_API_KEY:?set COGNIPEER_API_KEY}
+      # Self-hosted Console? Point at it — host root, no /api path.
+      - COGNIPEER_BASE_URL=${COGNIPEER_BASE_URL:-https://console.cognipeer.com}
+      - N8N_URL=http://n8n:5678
+      - N8N_API_KEY=${N8N_API_KEY:?set N8N_API_KEY (n8n → Settings → n8n API)}
+      # Poll interval in seconds. Every flag has an env form, so the command
+      # below needs no arguments at all.
+      - COGNIPEER_N8N_INTERVAL=15
+    # `npx -y` so the image needs no build step. Pin the version in production.
+    command: >
+      sh -c "npx -y -p @cognipeer/observability cognipeer-n8n"
+    restart: unless-stopped
+
+volumes:
+  n8n_data:

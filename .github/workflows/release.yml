@@ -1,0 +1,68 @@
+name: Release
+
+# Tag shape decides what publishes:
+#   js-v0.2.0      → npm only
+#   py-v0.2.0      → PyPI only
+#   v0.2.0         → both
+on:
+  push:
+    tags: ['v*', 'js-v*', 'py-v*']
+
+jobs:
+  npm:
+    if: startsWith(github.ref_name, 'js-v') || startsWith(github.ref_name, 'v')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: js
+    permissions:
+      contents: read
+      # Required for npm provenance — the published package is signed with a
+      # verifiable link back to this workflow run.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: https://registry.npmjs.org
+          cache: npm
+          cache-dependency-path: js/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - name: version matches the tag
+        run: |
+          TAG="${GITHUB_REF_NAME#js-}"
+          PKG="v$(node -p "require('./package.json').version")"
+          [ "$TAG" = "$PKG" ] || { echo "tag $TAG != package $PKG"; exit 1; }
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  pypi:
+    if: startsWith(github.ref_name, 'py-v') || startsWith(github.ref_name, 'v')
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: python
+    environment: pypi
+    permissions:
+      contents: read
+      # Trusted publishing — no long-lived PyPI token in repository secrets.
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install build
+      - name: version matches the tag
+        run: |
+          TAG="${GITHUB_REF_NAME#py-}"
+          PKG="v$(python -c "import re,pathlib;print(re.search(r'^version = \"(.+)\"', pathlib.Path('pyproject.toml').read_text(), re.M).group(1))")"
+          [ "$TAG" = "$PKG" ] || { echo "tag $TAG != package $PKG"; exit 1; }
+      - run: python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: python/dist

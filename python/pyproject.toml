@@ -1,0 +1,92 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cognipeer-observability"
+version = "0.2.0"
+description = "Ship agent traces from OpenAI Agents, Claude Agent SDK, LangChain, LangGraph and any OpenTelemetry-instrumented agent into Cognipeer Console."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Cognipeer" }]
+keywords = [
+  "observability",
+  "tracing",
+  "llm",
+  "agents",
+  "opentelemetry",
+  "langchain",
+  "langgraph",
+  "openai-agents",
+  "anthropic",
+  "cognipeer",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: System :: Monitoring",
+  "Typing :: Typed",
+]
+
+# The core ships on the standard library alone: an observability package must
+# never force a dependency resolution on the application it is watching.
+dependencies = ["typing_extensions>=4.5; python_version<'3.11'"]
+
+[project.optional-dependencies]
+langchain = ["langchain-core>=0.1.0"]
+langgraph = ["langgraph>=0.1.0", "langchain-core>=0.1.0"]
+openai-agents = ["openai-agents>=0.0.1"]
+claude-agent-sdk = ["claude-agent-sdk>=0.1.0"]
+otel = ["opentelemetry-sdk>=1.20.0"]
+all = [
+  "langchain-core>=0.1.0",
+  "langgraph>=0.1.0",
+  "openai-agents>=0.0.1",
+  "claude-agent-sdk>=0.1.0",
+  "opentelemetry-sdk>=1.20.0",
+]
+dev = [
+  "pytest>=7.4",
+  "pytest-asyncio>=0.23",
+  "mypy>=1.8",
+  "ruff>=0.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/Cognipeer/console-observability"
+Documentation = "https://cognipeer.github.io/console/guide/observability/overview"
+Source = "https://github.com/Cognipeer/console-observability"
+Issues = "https://github.com/Cognipeer/console-observability/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cognipeer_observability"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = [
+  # `type` and `id` mirror wire field names in the public keyword API.
+  "A002",
+  "A003",
+]
+
+[tool.mypy]
+python_version = "3.9"
+warn_unused_ignores = false
+ignore_missing_imports = true

@@ -1,0 +1,139 @@
+{
+  "name": "@cognipeer/observability",
+  "version": "0.2.0",
+  "description": "Ship agent traces from OpenAI Agents, Claude Agent SDK, LangChain, LangGraph, Vercel AI SDK, n8n and any OpenTelemetry-instrumented agent into Cognipeer Console.",
+  "license": "MIT",
+  "author": "Cognipeer",
+  "homepage": "https://github.com/Cognipeer/console-observability",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cognipeer/console-observability.git",
+    "directory": "js"
+  },
+  "bugs": {
+    "url": "https://github.com/Cognipeer/console-observability/issues"
+  },
+  "keywords": [
+    "observability",
+    "tracing",
+    "llm",
+    "agents",
+    "opentelemetry",
+    "langchain",
+    "langgraph",
+    "openai-agents",
+    "claude",
+    "anthropic",
+    "vercel-ai-sdk",
+    "n8n",
+    "cognipeer"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./langchain": {
+      "types": "./dist/integrations/langchain.d.ts",
+      "import": "./dist/integrations/langchain.js",
+      "require": "./dist/integrations/langchain.cjs"
+    },
+    "./langgraph": {
+      "types": "./dist/integrations/langgraph.d.ts",
+      "import": "./dist/integrations/langgraph.js",
+      "require": "./dist/integrations/langgraph.cjs"
+    },
+    "./openai-agents": {
+      "types": "./dist/integrations/openai-agents.d.ts",
+      "import": "./dist/integrations/openai-agents.js",
+      "require": "./dist/integrations/openai-agents.cjs"
+    },
+    "./claude-agent-sdk": {
+      "types": "./dist/integrations/claude-agent-sdk.d.ts",
+      "import": "./dist/integrations/claude-agent-sdk.js",
+      "require": "./dist/integrations/claude-agent-sdk.cjs"
+    },
+    "./vercel-ai": {
+      "types": "./dist/integrations/vercel-ai.d.ts",
+      "import": "./dist/integrations/vercel-ai.js",
+      "require": "./dist/integrations/vercel-ai.cjs"
+    },
+    "./n8n": {
+      "types": "./dist/integrations/n8n.d.ts",
+      "import": "./dist/integrations/n8n.js",
+      "require": "./dist/integrations/n8n.cjs"
+    },
+    "./otel": {
+      "types": "./dist/otel/index.d.ts",
+      "import": "./dist/otel/index.js",
+      "require": "./dist/otel/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext .ts",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "@anthropic-ai/claude-agent-sdk": ">=0.1.0",
+    "@langchain/core": ">=0.1.0",
+    "@openai/agents": ">=0.0.1",
+    "@opentelemetry/sdk-trace-base": ">=1.0.0",
+    "ai": ">=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@anthropic-ai/claude-agent-sdk": {
+      "optional": true
+    },
+    "@langchain/core": {
+      "optional": true
+    },
+    "@openai/agents": {
+      "optional": true
+    },
+    "@opentelemetry/sdk-trace-base": {
+      "optional": true
+    },
+    "ai": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.3.0",
+    "@langchain/core": "^1.1.0",
+    "@openai/agents": "^0.16.0",
+    "@opentelemetry/sdk-trace-base": "^2.0.0",
+    "@types/node": "^22.10.0",
+    "ai": "^7.0.0",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "bin": {
+    "cognipeer-n8n": "./bin/cognipeer-n8n.mjs"
+  }
+}
