@@ -23,7 +23,7 @@ await agent.invoke(state, { callbacks: [new CognipeerCallbackHandler()] });
 That is the whole integration. Two lines, no proxy, no base-URL swap, no
 change to how your agent calls its models.
 
-This package is the TypeScript half of [`cognipeer-observability`](https://github.com/Cognipeer/console-observability),
+This package is the TypeScript half of [`cognipeer-observability`](https://github.com/Cognipeer/cognipeer-observability),
 an MIT-licensed monorepo also publishing [`cognipeer-observability`](https://pypi.org/project/cognipeer-observability/)
 for Python. See the [full documentation and per-framework guides](https://cognipeer.github.io/console/guide/observability/overview).
 
@@ -126,10 +126,10 @@ for the execution-bridge vs. webhook-hook tradeoffs.
 
 - [Cognipeer Console](https://github.com/Cognipeer/console) — the product this feeds
 - [Full documentation](https://cognipeer.github.io/console/guide/observability/overview)
-- [Data model](https://github.com/Cognipeer/console-observability/blob/main/docs/data-model.md) every integration maps onto
-- [Examples](https://github.com/Cognipeer/console-observability/tree/main/examples/js)
-- [Source repository](https://github.com/Cognipeer/console-observability) (monorepo, `js/` directory)
-- [Issues](https://github.com/Cognipeer/console-observability/issues)
+- [Data model](https://github.com/Cognipeer/cognipeer-observability/blob/main/docs/data-model.md) every integration maps onto
+- [Examples](https://github.com/Cognipeer/cognipeer-observability/tree/main/examples/js)
+- [Source repository](https://github.com/Cognipeer/cognipeer-observability) (monorepo, `js/` directory)
+- [Issues](https://github.com/Cognipeer/cognipeer-observability/issues)
 
 ## Licence
 

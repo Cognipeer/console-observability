@@ -62,10 +62,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Cognipeer/console-observability"
+Homepage = "https://github.com/Cognipeer/cognipeer-observability"
 Documentation = "https://cognipeer.github.io/console/guide/observability/overview"
-Source = "https://github.com/Cognipeer/console-observability"
-Issues = "https://github.com/Cognipeer/console-observability/issues"
+Source = "https://github.com/Cognipeer/cognipeer-observability"
+Issues = "https://github.com/Cognipeer/cognipeer-observability/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/cognipeer_observability"]

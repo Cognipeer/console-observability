@@ -63,5 +63,5 @@ First release.
 - Runnable examples per framework and a full guide per integration in the
   [Console documentation](https://cognipeer.github.io/console/guide/observability/overview).
 
-[Unreleased]: https://github.com/Cognipeer/console-observability/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/Cognipeer/console-observability/releases/tag/v0.1.0
+[Unreleased]: https://github.com/Cognipeer/cognipeer-observability/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/Cognipeer/cognipeer-observability/releases/tag/v0.1.0

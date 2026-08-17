@@ -23,7 +23,7 @@ agent.invoke(state, config={"callbacks": [CognipeerCallbackHandler()]})
 That is the whole integration. Two lines, no proxy, no base-URL swap, no
 change to how your agent calls its models.
 
-This package is the Python half of [`cognipeer-observability`](https://github.com/Cognipeer/console-observability),
+This package is the Python half of [`cognipeer-observability`](https://github.com/Cognipeer/cognipeer-observability),
 an MIT-licensed monorepo also publishing [`@cognipeer/observability`](https://www.npmjs.com/package/@cognipeer/observability)
 for TypeScript. See the [full documentation and per-framework guides](https://cognipeer.github.io/console/guide/observability/overview).
 
@@ -116,10 +116,10 @@ short-lived process exits (a script, a Lambda handler, a CI job).
 
 - [Cognipeer Console](https://github.com/Cognipeer/console) — the product this feeds
 - [Full documentation](https://cognipeer.github.io/console/guide/observability/overview)
-- [Data model](https://github.com/Cognipeer/console-observability/blob/main/docs/data-model.md) every integration maps onto
-- [Examples](https://github.com/Cognipeer/console-observability/tree/main/examples/python)
-- [Source repository](https://github.com/Cognipeer/console-observability) (monorepo, `python/` directory)
-- [Issues](https://github.com/Cognipeer/console-observability/issues)
+- [Data model](https://github.com/Cognipeer/cognipeer-observability/blob/main/docs/data-model.md) every integration maps onto
+- [Examples](https://github.com/Cognipeer/cognipeer-observability/tree/main/examples/python)
+- [Source repository](https://github.com/Cognipeer/cognipeer-observability) (monorepo, `python/` directory)
+- [Issues](https://github.com/Cognipeer/cognipeer-observability/issues)
 
 ## Licence
 

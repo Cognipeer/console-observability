@@ -4,14 +4,14 @@
   "description": "Ship agent traces from OpenAI Agents, Claude Agent SDK, LangChain, LangGraph, Vercel AI SDK, n8n and any OpenTelemetry-instrumented agent into Cognipeer Console.",
   "license": "MIT",
   "author": "Cognipeer",
-  "homepage": "https://github.com/Cognipeer/console-observability",
+  "homepage": "https://github.com/Cognipeer/cognipeer-observability",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Cognipeer/console-observability.git",
+    "url": "git+https://github.com/Cognipeer/cognipeer-observability.git",
     "directory": "js"
   },
   "bugs": {
-    "url": "https://github.com/Cognipeer/console-observability/issues"
+    "url": "https://github.com/Cognipeer/cognipeer-observability/issues"
   },
   "keywords": [
     "observability",
